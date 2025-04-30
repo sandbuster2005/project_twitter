@@ -9,4 +9,3 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if not is_on_floor():
 		pass
-	pass
