@@ -14,6 +14,12 @@ config/name="Projet-twitter"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://assets/Sprites/Characters/Player/icon.svg"
 
+[autoload]
+
+VariableManager="*res://Scripts/Managers/Variable_Manager.gd"
+SoundManager="*res://Scripts/Managers/Sound_Manager.gd"
+TransitionManager="*res://Scripts/Managers/Transition_Manager.gd"
+
 [editor]
 
 version_control/plugin_name="GitPlugin"
