@@ -12,7 +12,7 @@ config_version=5
 
 config/name="Projet-twitter"
 config/features=PackedStringArray("4.4", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="res://assets/Sprites/Characters/Player/icon.svg"
 
 [editor]
 
@@ -22,9 +22,9 @@ version_control/autoload_on_startup=true
 [file_customization]
 
 folder_colors={
-"res://Scene/": "orange",
-"res://Scene/Characters/": "blue",
-"res://Scene/Levels/": "green",
+"res://Scenes/": "orange",
+"res://Scenes/Characters/": "blue",
+"res://Scenes/Levels/": "green",
 "res://Scripts/": "red",
 "res://Scripts/Characters/": "blue",
 "res://Scripts/GUI/": "orange",
