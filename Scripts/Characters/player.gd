@@ -2,6 +2,7 @@ extends CharacterBody2D
 
 @export_category("Propriétés")
 @export var Speed : int
+@export var gravité : int
 
 func _ready() -> void:
 	pass
