@@ -10,7 +10,9 @@ size = Vector2(128, 128)
 script = ExtResource("1_40svl")
 
 [node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(0.25, 0.25)
 position_smoothing_enabled = true
+position_smoothing_speed = 10.0
 
 [node name="Icon" type="Sprite2D" parent="."]
 texture = ExtResource("2_al8ar")
