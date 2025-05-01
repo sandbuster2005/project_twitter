@@ -16,9 +16,58 @@ Dash_strength = 1700
 position = Vector2(450, 469)
 scale = Vector2(8.74219, 3.17188)
 texture = ExtResource("2_6e4q7")
+metadata/_edit_group_ = true
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Sol"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sol/StaticBody2D"]
+position = Vector2(-0.285976, 0.630524)
+shape = SubResource("RectangleShape2D_xmoga")
+
+[node name="Sol2" type="Sprite2D" parent="."]
+position = Vector2(1897, 207)
+scale = Vector2(8.74219, 3.17188)
+texture = ExtResource("2_6e4q7")
+metadata/_edit_group_ = true
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Sol2"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sol2/StaticBody2D"]
+position = Vector2(-0.285976, 0.630524)
+shape = SubResource("RectangleShape2D_xmoga")
+
+[node name="Sol3" type="Sprite2D" parent="."]
+position = Vector2(3623, -111)
+scale = Vector2(8.74219, 3.17188)
+texture = ExtResource("2_6e4q7")
+metadata/_edit_group_ = true
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Sol3"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sol3/StaticBody2D"]
+position = Vector2(-0.285976, 0.630524)
+shape = SubResource("RectangleShape2D_xmoga")
+
+[node name="Sol4" type="Sprite2D" parent="."]
+position = Vector2(5242, 424)
+scale = Vector2(8.74219, 3.17188)
+texture = ExtResource("2_6e4q7")
+metadata/_edit_group_ = true
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Sol4"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sol4/StaticBody2D"]
+position = Vector2(-0.285976, 0.630524)
+shape = SubResource("RectangleShape2D_xmoga")
+
+[node name="Sol5" type="Sprite2D" parent="."]
+position = Vector2(6216, 424)
+scale = Vector2(8.74219, 3.17188)
+texture = ExtResource("2_6e4q7")
+metadata/_edit_group_ = true
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Sol5"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sol5/StaticBody2D"]
 position = Vector2(-0.285976, 0.630524)
 shape = SubResource("RectangleShape2D_xmoga")
