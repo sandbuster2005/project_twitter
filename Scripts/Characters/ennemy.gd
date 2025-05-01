@@ -1,1 +1,1 @@
-extends RigidBody2D
+extends CharacterBody2D
