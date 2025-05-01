@@ -6,7 +6,7 @@ class_name Player extends CharacterBody2D
 
 @export_category("Jump")
 @export var Jump_strength = 1500
-@export var Dash_strength = 1205
+@export var Dash_strength = 1700
 @export var jumpMax = 2
 @onready var Dash_cooldown : float = 0
 
