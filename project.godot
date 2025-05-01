@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Projet-twitter"
-run/main_scene="uid://miaubx1cimuv"
+run/main_scene="uid://bi3j8yybij40r"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://assets/Sprites/Characters/Player/icon.svg"
 

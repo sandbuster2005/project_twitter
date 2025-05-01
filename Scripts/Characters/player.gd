@@ -10,6 +10,7 @@ class_name Player extends CharacterBody2D
 @onready var Dash_cooldown : float = 0
 
 var Move = true 
+var dash = 0
 @onready var gravity = VariableManager.gravity
 
 func _ready() -> void:
@@ -26,16 +27,17 @@ func _process(delta: float) -> void:
 		if Dash_cooldown !=0 :
 			Dash_cooldown -= 1
 		
-		var direction := Input.get_axis("Left", "Right") * Speed
-		velocity.x = move_toward(velocity.x, direction, Acceleration * delta)
+		dash = 0
 		
 		if Input.is_action_pressed("dash") and not Dash_cooldown:
-			if Input.get_axis("Left", "Right") > 0:
-				velocity.x += Dash_strength 
-			else :
-				velocity.x -= Dash_strength
+			dash = Dash_strength
 			Dash_cooldown = 30
 			velocity.y = 0
+		
+		var direction := Input.get_axis("Left", "Right")
+		velocity.x = move_toward(velocity.x, direction * Speed, Acceleration * delta) + (dash * direction)
+		
+		
 		
 		
 		move_and_slide()
