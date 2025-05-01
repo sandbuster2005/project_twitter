@@ -27,15 +27,15 @@ func _process(delta: float) -> void:
 		if Dash_cooldown !=0 :
 			Dash_cooldown -= 1
 		
-		dash = 0
+		var direction := Input.get_axis("Left", "Right")
+		if Dash_cooldown < 20:
+			velocity.x = move_toward(velocity.x, direction * Speed, Acceleration * delta)
 		
 		if Input.is_action_pressed("dash") and not Dash_cooldown:
-			dash = Dash_strength
-			Dash_cooldown = 30
-			velocity.y = 0
-		
-		var direction := Input.get_axis("Left", "Right")
-		velocity.x = move_toward(velocity.x, direction * Speed, Acceleration * delta) + (dash * direction)
+			if direction != 0:
+				velocity.x = Dash_strength*direction
+				Dash_cooldown = 30
+				velocity.y = 0
 		
 		
 		
