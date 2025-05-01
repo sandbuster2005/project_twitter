@@ -1,40 +1,31 @@
-extends CharacterBody2D
+class_name Player extends CharacterBody2D
 
-@export_category("Propriétés")
-@export var Speed : int
+@export_category("Walk/Run")
+@export var Speed : int = 505
+@export var Acceleration : int = 3000
 
-var move = true 
+@export_category("Jump")
+@export var Jump_strength = 1205
+@export var Jump_sound : AudioStreamPlayer2D
+
+
+var Move = true 
 @onready var gravity = VariableManager.gravity
 
 func _ready() -> void:
 	pass
 
 func _process(delta: float) -> void:
-	if move:
+	if Move:
 		if not is_on_floor():
-			velocity.y += gravity/10
-			
-		print(velocity.y)
-		print(velocity.x)
+			velocity.y += gravity
+
 		print(velocity)
-		if velocity.x!=0:
-			if velocity.x < 0:
-				velocity.x += Speed/10
-				
-			else:
-				velocity.x -= Speed/10
 		
 		if Input.is_action_pressed("Up") and is_on_floor():
-			velocity.y = -Speed*5
+			velocity.y = -Jump_strength
+			
+		var direction := Input.get_axis("Left", "Right") * Speed
+		velocity.x = move_toward(velocity.x, direction, Acceleration * delta)
 		
-		if Input.is_action_pressed("Down"):
-			pass
-			
-		if Input.is_action_pressed("Right"):
-			velocity.x = Speed
-			
-		if Input.is_action_pressed("Left"):
-			velocity.x = -Speed
-			
 		move_and_slide()
-		

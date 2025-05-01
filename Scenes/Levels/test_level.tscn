@@ -9,7 +9,7 @@ size = Vector2(128.229, 127.369)
 [node name="Test_level" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("1_usv2h")]
-position = Vector2(353, 176)
+position = Vector2(310, 47)
 
 [node name="Sol" type="Sprite2D" parent="."]
 position = Vector2(450, 469)
