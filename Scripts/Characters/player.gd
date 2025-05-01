@@ -31,9 +31,9 @@ func _process(delta: float) -> void:
 		
 		if Input.is_action_pressed("dash") and not Dash_cooldown:
 			if Input.get_axis("Left", "Right") > 0:
-				velocity.x += Dash_strength 
+				velocity.x = Dash_strength + abs(velocity.x)
 			else :
-				velocity.x -= Dash_strength
+				velocity.x = -Dash_strength - abs(velocity.x)
 			Dash_cooldown = 30
 			velocity.y = 0
 		
