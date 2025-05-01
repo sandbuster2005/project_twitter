@@ -14,6 +14,30 @@ position = Vector2(310, 47)
 Dash_duration = 30
 Dash_strength = 1350
 
+[node name="Sol7" type="Sprite2D" parent="."]
+position = Vector2(-11902, 1411)
+scale = Vector2(165.93, 9.28126)
+texture = ExtResource("2_6e4q7")
+metadata/_edit_group_ = true
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Sol7"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sol7/StaticBody2D"]
+position = Vector2(-0.285976, 0.630524)
+shape = SubResource("RectangleShape2D_xmoga")
+
+[node name="Sol6" type="Sprite2D" parent="."]
+position = Vector2(3611, 1460)
+scale = Vector2(76.4259, 10.0608)
+texture = ExtResource("2_6e4q7")
+metadata/_edit_group_ = true
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Sol6"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sol6/StaticBody2D"]
+position = Vector2(-0.285976, 0.630524)
+shape = SubResource("RectangleShape2D_xmoga")
+
 [node name="Sol" type="Sprite2D" parent="."]
 position = Vector2(450, 469)
 scale = Vector2(8.74219, 3.17188)

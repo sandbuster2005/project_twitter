@@ -33,7 +33,7 @@ func _process(delta: float) -> void:
 				velocity.y = -Jump_strength
 			else:
 				jumpNum = jumpMax
-		elif Dash_cooldown<Dash_delay-Dash_duration and velocity.y <= 3000:
+		elif velocity.y <= 3000:
 			velocity.y += gravity
 		
 		if Input.is_action_just_pressed("Up"):
@@ -59,10 +59,6 @@ func _process(delta: float) -> void:
 		if Dash_cooldown > Dash_delay-Dash_duration:
 			velocity.x = Dash_strength*Dash_dir*sin((Dash_cooldown-Dash_delay)/Dash_duration+PI/2)
 			
-			
-		
-		
-		
 		
 		move_and_slide()
  
