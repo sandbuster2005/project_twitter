@@ -11,7 +11,10 @@ func _on_pressed() -> void:
 	pass # Replace with function body.
 "
 
-[node name="Control" type="Control"]
+[node name="CanvasLayer" type="CanvasLayer"]
+
+[node name="Control" type="Control" parent="."]
+clip_contents = true
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -20,7 +23,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_17j7b")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="ColorRect" type="ColorRect" parent="Control"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -29,7 +32,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.517647, 0.517647, 0.517647, 0.227451)
 
-[node name="RestartButton" type="Button" parent="ColorRect"]
+[node name="RestartButton" type="Button" parent="Control/ColorRect"]
 layout_mode = 0
 offset_left = 52.0
 offset_top = 28.0
@@ -39,4 +42,4 @@ theme = ExtResource("2_17j7b")
 text = "Restart"
 script = SubResource("GDScript_linlh")
 
-[connection signal="pressed" from="ColorRect/RestartButton" to="." method="_on_restart_button_pressed"]
+[connection signal="pressed" from="Control/ColorRect/RestartButton" to="Control" method="_on_restart_button_pressed"]
