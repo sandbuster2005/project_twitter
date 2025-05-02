@@ -62,7 +62,9 @@ func _process(delta: float) -> void:
 				Dash_dir = direction
 		
 		if Dash_cooldown > Dash_delay-Dash_duration:
-			velocity.x = Dash_strength*Dash_dir*sin((Dash_cooldown-Dash_delay)/Dash_duration+PI/2)
+			#velocity.x = Dash_strength*Dash_dir*sin((Dash_cooldown-Dash_delay)/Dash_duration+PI/2)
+			var j=(Dash_delay-Dash_cooldown)/Dash_duration
+			velocity.x = Dash_strength*Dash_dir*(sin(3*(j**2.5))+0.5)
 			
 		
 		move_and_slide()
