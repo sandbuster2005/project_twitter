@@ -1,12 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://bw0afk6ev1ffo"]
+[gd_scene load_steps=4 format=3 uid="uid://bw0afk6ev1ffo"]
 
 [ext_resource type="Script" uid="uid://8hj7kts5syby" path="res://Scripts/GUI/gui.gd" id="1_17j7b"]
-[ext_resource type="FontFile" uid="uid://cqbibes8bfr74" path="res://assets/Fonts/PixelifySans-Regular.ttf" id="2_17j7b"]
-
-[sub_resource type="Theme" id="Theme_n3sgb"]
-default_base_scale = 1.13
-default_font = ExtResource("2_17j7b")
-default_font_size = 36
+[ext_resource type="Theme" uid="uid://bq2v80y2o5puv" path="res://assets/Themes/Theme_1.tres" id="2_17j7b"]
 
 [sub_resource type="GDScript" id="GDScript_linlh"]
 script/source = "extends Button
@@ -25,14 +20,23 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_17j7b")
 
-[node name="RestartButton" type="Button" parent="."]
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.517647, 0.517647, 0.517647, 0.227451)
+
+[node name="RestartButton" type="Button" parent="ColorRect"]
 layout_mode = 0
 offset_left = 52.0
 offset_top = 28.0
 offset_right = 243.0
 offset_bottom = 94.0
-theme = SubResource("Theme_n3sgb")
+theme = ExtResource("2_17j7b")
 text = "Restart"
 script = SubResource("GDScript_linlh")
 
-[connection signal="pressed" from="RestartButton" to="." method="_on_restart_button_pressed"]
+[connection signal="pressed" from="ColorRect/RestartButton" to="." method="_on_restart_button_pressed"]
