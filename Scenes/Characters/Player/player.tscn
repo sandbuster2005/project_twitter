@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://miaubx1cimuv"]
+[gd_scene load_steps=4 format=3 uid="uid://b4m1wsypfwcff"]
 
 [ext_resource type="Texture2D" uid="uid://cgxtro5br53eo" path="res://assets/Sprites/Characters/Player/icon.svg" id="2_al8ar"]
 
@@ -76,7 +76,6 @@ height = 128.0
 script = SubResource("GDScript_3etf2")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(0.1, 0.1)
 position_smoothing_enabled = true
 position_smoothing_speed = 10.0
 
