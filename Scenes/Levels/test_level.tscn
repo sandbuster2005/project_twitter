@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://bi3j8yybij40r"]
+[gd_scene load_steps=6 format=3 uid="uid://bi3j8yybij40r"]
 
-[ext_resource type="PackedScene" uid="uid://miaubx1cimuv" path="res://Scenes/Characters/player.tscn" id="1_usv2h"]
+[ext_resource type="PackedScene" uid="uid://miaubx1cimuv" path="res://Scenes/Characters/Player/player.tscn" id="1_usv2h"]
 [ext_resource type="Texture2D" uid="uid://cgxtro5br53eo" path="res://assets/Sprites/Characters/Player/icon.svg" id="2_6e4q7"]
 [ext_resource type="PackedScene" uid="uid://cicjpx73nrxix" path="res://Scenes/Characters/Ennemies/ennemy.tscn" id="3_2ytpj"]
+[ext_resource type="PackedScene" uid="uid://bw0afk6ev1ffo" path="res://Scenes/GUI/GUI.tscn" id="4_db73o"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xmoga"]
 size = Vector2(128.229, 127.369)
@@ -11,92 +12,102 @@ size = Vector2(128.229, 127.369)
 
 [node name="Player" parent="." instance=ExtResource("1_usv2h")]
 position = Vector2(310, 47)
-Dash_duration = 30
 Dash_strength = 1350
 
-[node name="Sol7" type="Sprite2D" parent="."]
+[node name="Ennemy" parent="." instance=ExtResource("3_2ytpj")]
+position = Vector2(5632, -120)
+
+[node name="Plateformes" type="Node2D" parent="."]
+
+[node name="Sol7" type="Sprite2D" parent="Plateformes"]
 position = Vector2(-11902, 1411)
 scale = Vector2(165.93, 9.28126)
 texture = ExtResource("2_6e4q7")
 metadata/_edit_group_ = true
 
-[node name="StaticBody2D" type="StaticBody2D" parent="Sol7"]
+[node name="StaticBody2D" type="StaticBody2D" parent="Plateformes/Sol7"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Sol7/StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Plateformes/Sol7/StaticBody2D"]
 position = Vector2(-0.285976, 0.630524)
 shape = SubResource("RectangleShape2D_xmoga")
 
-[node name="Sol6" type="Sprite2D" parent="."]
+[node name="Sol6" type="Sprite2D" parent="Plateformes"]
 position = Vector2(3611, 1460)
 scale = Vector2(76.4259, 10.0608)
 texture = ExtResource("2_6e4q7")
 metadata/_edit_group_ = true
 
-[node name="StaticBody2D" type="StaticBody2D" parent="Sol6"]
+[node name="StaticBody2D" type="StaticBody2D" parent="Plateformes/Sol6"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Sol6/StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Plateformes/Sol6/StaticBody2D"]
 position = Vector2(-0.285976, 0.630524)
 shape = SubResource("RectangleShape2D_xmoga")
 
-[node name="Sol" type="Sprite2D" parent="."]
+[node name="Sol" type="Sprite2D" parent="Plateformes"]
 position = Vector2(450, 469)
 scale = Vector2(8.74219, 3.17188)
 texture = ExtResource("2_6e4q7")
 metadata/_edit_group_ = true
 
-[node name="StaticBody2D" type="StaticBody2D" parent="Sol"]
+[node name="StaticBody2D" type="StaticBody2D" parent="Plateformes/Sol"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Sol/StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Plateformes/Sol/StaticBody2D"]
 position = Vector2(-0.285976, 0.630524)
 shape = SubResource("RectangleShape2D_xmoga")
 
-[node name="Sol2" type="Sprite2D" parent="."]
+[node name="Sol2" type="Sprite2D" parent="Plateformes"]
 position = Vector2(1897, 207)
 scale = Vector2(8.74219, 3.17188)
 texture = ExtResource("2_6e4q7")
 metadata/_edit_group_ = true
 
-[node name="StaticBody2D" type="StaticBody2D" parent="Sol2"]
+[node name="StaticBody2D" type="StaticBody2D" parent="Plateformes/Sol2"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Sol2/StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Plateformes/Sol2/StaticBody2D"]
 position = Vector2(-0.285976, 0.630524)
 shape = SubResource("RectangleShape2D_xmoga")
 
-[node name="Sol3" type="Sprite2D" parent="."]
+[node name="Sol3" type="Sprite2D" parent="Plateformes"]
 position = Vector2(3623, -111)
 scale = Vector2(8.74219, 3.17188)
 texture = ExtResource("2_6e4q7")
 metadata/_edit_group_ = true
 
-[node name="StaticBody2D" type="StaticBody2D" parent="Sol3"]
+[node name="StaticBody2D" type="StaticBody2D" parent="Plateformes/Sol3"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Sol3/StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Plateformes/Sol3/StaticBody2D"]
 position = Vector2(-0.285976, 0.630524)
 shape = SubResource("RectangleShape2D_xmoga")
 
-[node name="Sol4" type="Sprite2D" parent="."]
+[node name="Sol4" type="Sprite2D" parent="Plateformes"]
 position = Vector2(5242, 424)
 scale = Vector2(8.74219, 3.17188)
 texture = ExtResource("2_6e4q7")
 metadata/_edit_group_ = true
 
-[node name="StaticBody2D" type="StaticBody2D" parent="Sol4"]
+[node name="StaticBody2D" type="StaticBody2D" parent="Plateformes/Sol4"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Sol4/StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Plateformes/Sol4/StaticBody2D"]
 position = Vector2(-0.285976, 0.630524)
 shape = SubResource("RectangleShape2D_xmoga")
 
-[node name="Sol5" type="Sprite2D" parent="."]
+[node name="Sol5" type="Sprite2D" parent="Plateformes"]
 position = Vector2(6216, 424)
 scale = Vector2(8.74219, 3.17188)
 texture = ExtResource("2_6e4q7")
 metadata/_edit_group_ = true
 
-[node name="StaticBody2D" type="StaticBody2D" parent="Sol5"]
+[node name="StaticBody2D" type="StaticBody2D" parent="Plateformes/Sol5"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Sol5/StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Plateformes/Sol5/StaticBody2D"]
 position = Vector2(-0.285976, 0.630524)
 shape = SubResource("RectangleShape2D_xmoga")
 
-[node name="Ennemy" parent="." instance=ExtResource("3_2ytpj")]
-position = Vector2(5632, -120)
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" parent="CanvasLayer" instance=ExtResource("4_db73o")]
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+grow_horizontal = 1
+grow_vertical = 1
