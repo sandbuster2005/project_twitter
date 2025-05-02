@@ -1,0 +1,95 @@
+[gd_scene load_steps=3 format=3 uid="uid://cp8erwnovcayy"]
+
+[ext_resource type="PackedScene" uid="uid://c3rxam4yvjnpr" path="res://Scenes/Plateformes/plateform_static.tscn" id="1_p5xj4"]
+[ext_resource type="PackedScene" uid="uid://miaubx1cimuv" path="res://Scenes/Characters/Player/player.tscn" id="2_kp12e"]
+
+[node name="Test_level_2" type="Node2D"]
+
+[node name="Plateforms" type="Node2D" parent="."]
+
+[node name="Plateform Static" parent="Plateforms" instance=ExtResource("1_p5xj4")]
+position = Vector2(224, 448)
+scale = Vector2(3.5, 1)
+
+[node name="Plateform Static2" parent="Plateforms" instance=ExtResource("1_p5xj4")]
+position = Vector2(664, 448)
+scale = Vector2(3.5, 1)
+
+[node name="Plateform Static3" parent="Plateforms" instance=ExtResource("1_p5xj4")]
+position = Vector2(1112, 320)
+scale = Vector2(3.5, 1)
+
+[node name="Plateform Static4" parent="Plateforms" instance=ExtResource("1_p5xj4")]
+position = Vector2(1560, 192)
+scale = Vector2(3.5, 1)
+
+[node name="Plateform Static5" parent="Plateforms" instance=ExtResource("1_p5xj4")]
+position = Vector2(1560, 64)
+scale = Vector2(3.5, 1)
+
+[node name="Plateform Static8" parent="Plateforms" instance=ExtResource("1_p5xj4")]
+position = Vector2(1120, -200)
+scale = Vector2(3.5, 1)
+
+[node name="Plateform Static9" parent="Plateforms" instance=ExtResource("1_p5xj4")]
+position = Vector2(672, -200)
+scale = Vector2(3.5, 1)
+
+[node name="Plateform Static10" parent="Plateforms" instance=ExtResource("1_p5xj4")]
+position = Vector2(960, -648)
+scale = Vector2(3.5, 1)
+
+[node name="Plateform Static11" parent="Plateforms" instance=ExtResource("1_p5xj4")]
+position = Vector2(576, -728)
+rotation = 0.387463
+scale = Vector2(3.5, 1)
+
+[node name="Plateform Static12" parent="Plateforms" instance=ExtResource("1_p5xj4")]
+position = Vector2(224, -912)
+rotation = 0.581195
+scale = Vector2(3.5, 1)
+
+[node name="Plateform Static13" parent="Plateforms" instance=ExtResource("1_p5xj4")]
+position = Vector2(-47.9999, -1168)
+rotation = 0.968658
+scale = Vector2(3.5, 1)
+
+[node name="Plateform Static14" parent="Plateforms" instance=ExtResource("1_p5xj4")]
+position = Vector2(-200, -1512)
+rotation = 1.35612
+scale = Vector2(3.5, 1)
+
+[node name="Plateform Static15" parent="Plateforms" instance=ExtResource("1_p5xj4")]
+position = Vector2(-280, -1872)
+rotation = 1.35612
+scale = Vector2(3.5, 1)
+
+[node name="Plateform Static16" parent="Plateforms" instance=ExtResource("1_p5xj4")]
+position = Vector2(-368, -2272)
+rotation = 1.35612
+scale = Vector2(3.5, 1)
+
+[node name="Plateform Static17" parent="Plateforms" instance=ExtResource("1_p5xj4")]
+position = Vector2(-448, -2648)
+rotation = 1.35612
+scale = Vector2(3.5, 1)
+
+[node name="Plateform Static18" parent="Plateforms" instance=ExtResource("1_p5xj4")]
+position = Vector2(-656, -2816)
+scale = Vector2(3.5, 1)
+
+[node name="Plateform Static19" parent="Plateforms" instance=ExtResource("1_p5xj4")]
+position = Vector2(-1104, -2816)
+scale = Vector2(3.5, 1)
+
+[node name="Plateform Static6" parent="Plateforms" instance=ExtResource("1_p5xj4")]
+position = Vector2(-224, -128)
+scale = Vector2(3.5, 10)
+
+[node name="Plateform Static7" parent="Plateforms" instance=ExtResource("1_p5xj4")]
+position = Vector2(2008, -384)
+scale = Vector2(3.5, 10)
+
+[node name="Player" parent="." instance=ExtResource("2_kp12e")]
+position = Vector2(-1024, -3656)
+Acceleration = 100
