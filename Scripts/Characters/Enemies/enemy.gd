@@ -11,7 +11,7 @@ var bord = false
 @export_category("Attack")
 @export var dammage = 10
 @export var knockback = 3
-@export var chasing : bool = false
+var chasing : bool = false
 var cible = Node
 
 @export_category("Life")

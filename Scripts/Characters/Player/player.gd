@@ -14,6 +14,15 @@ class_name Player extends CharacterBody2D
 @export var Dash_strength = 1500
 var Dash_dir = 0
 
+@export_category("Attack")
+@export var dammage = 50
+@export var knockback = 30
+
+@export_category("Life")
+@export var health = 100
+@export var health_max = 100
+@export var health_min = 0
+
 @onready var Dash_cooldown : float = 0
 
 
