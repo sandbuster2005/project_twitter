@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://b4m1wsypfwcff" path="res://Scenes/Characters/Player/player.tscn" id="1_usv2h"]
 [ext_resource type="Texture2D" uid="uid://cgxtro5br53eo" path="res://assets/Sprites/Characters/Player/icon.svg" id="2_6e4q7"]
-[ext_resource type="PackedScene" uid="uid://cicjpx73nrxix" path="res://Scenes/Characters/Enemies/enemy.tscn" id="3_2ytpj"]
+[ext_resource type="PackedScene" uid="uid://cicjpx73nrxix" path="res://Scenes/Characters/Ennemies/ennemy.tscn" id="3_2ytpj"]
 
 [sub_resource type="GDScript" id="GDScript_2ytpj"]
 script/source = "extends CharacterBody2D
@@ -87,7 +87,7 @@ script = SubResource("GDScript_2ytpj")
 Dash_strength = 1350
 
 [node name="Ennemy" parent="." instance=ExtResource("3_2ytpj")]
-position = Vector2(4672, 152)
+position = Vector2(5656, 144)
 
 [node name="Plateformes" type="Node2D" parent="."]
 

@@ -11,6 +11,9 @@ func _change_level():
 	var gui = load_gui.instantiate()
 	add_child(level)
 	add_child(gui)
+	for i in level.get_children():
+		if i.name == "Player":
+			i.connect("death",_on_restart)
 	gui.connect("restart",_on_restart)
 
 func _on_restart():
@@ -20,4 +23,3 @@ func _on_restart():
 func _delete_chidrens():
 	for i in get_children():
 		i.queue_free()
-	

@@ -1,87 +1,17 @@
-[gd_scene load_steps=4 format=3 uid="uid://b4m1wsypfwcff"]
+[gd_scene load_steps=5 format=3 uid="uid://b4m1wsypfwcff"]
 
+[ext_resource type="Script" uid="uid://bm8u2mn42xnuc" path="res://Scripts/Characters/Player/player.gd" id="1_lyjr2"]
 [ext_resource type="Texture2D" uid="uid://cgxtro5br53eo" path="res://assets/Sprites/Characters/Player/icon.svg" id="2_al8ar"]
-
-[sub_resource type="GDScript" id="GDScript_3etf2"]
-script/source = "extends CharacterBody2D
-
-@export_category(\"Walk/Run\")
-@export var Speed : int = 700
-@export var Acceleration : int = 5600
-
-@export_category(\"Jump\")
-@export var Jump_strength = 1500
-@export var jumpMax = 2
-
-@export_category(\"Dash\")
-@export var Dash_delay = 50
-@export var Dash_duration = 20
-@export var Dash_strength = 1500
-var Dash_dir = 0
-
-@onready var Dash_cooldown : float = 0
-
-
-var Move = true 
-var jumpNum = jumpMax
-
-@onready var gravity = VariableManager.gravity
-
-func _ready() -> void:
-	pass
-
-func _process(delta: float) -> void:
-	if Move:
-		if is_on_floor():
-			if jumpNum == -1 and Input.is_action_pressed(\"Up\"):
-				jumpNum = jumpMax - 1
-				velocity.y = -Jump_strength
-			else:
-				jumpNum = jumpMax
-		elif velocity.y <= 3000:
-			velocity.y += gravity
-		
-		if Input.is_action_just_pressed(\"Up\") and Dash_cooldown<=Dash_delay-(Dash_duration/2.5):
-			if jumpNum > 0:
-				velocity.y = -Jump_strength
-			jumpNum -= 1
-			if Dash_cooldown>Dash_delay-Dash_duration:
-				Dash_cooldown = Dash_delay-Dash_duration
-		
-		if Dash_cooldown !=0 :
-			Dash_cooldown -= 1
-		
-		var direction := Input.get_axis(\"Left\", \"Right\")
-		if Dash_cooldown < Dash_delay-Dash_duration:
-			if is_on_floor():
-				velocity.x = move_toward(velocity.x, direction * Speed, Acceleration * delta)
-			else:
-				if velocity.x/abs(velocity.x)==-direction and abs(velocity.x)>Speed:
-					velocity.x = move_toward(velocity.x, direction * Speed, Acceleration * delta)
-				elif abs(velocity.x)<=Speed:
-					velocity.x = move_toward(velocity.x, direction * Speed, Acceleration * delta)
-		
-		if Input.is_action_pressed(\"dash\") and Dash_cooldown==0 and is_on_floor():
-			if direction != 0:
-				Dash_cooldown = Dash_delay
-				velocity.y = 0
-				Dash_dir = direction
-		
-		if Dash_cooldown > Dash_delay-Dash_duration:
-			#velocity.x = Dash_strength*Dash_dir*sin((Dash_cooldown-Dash_delay)/Dash_duration+PI/2)
-			var j=(Dash_delay-Dash_cooldown)/Dash_duration
-			velocity.x = Dash_strength*Dash_dir*(sin(3*(j**2.5))+0.5)
-			
-		
-		move_and_slide()
-"
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_27cb7"]
 radius = 64.0
 height = 128.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_27cb7"]
+radius = 68.0294
+
 [node name="Player" type="CharacterBody2D"]
-script = SubResource("GDScript_3etf2")
+script = ExtResource("1_lyjr2")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(0.5, 0.5)
@@ -93,3 +23,10 @@ texture = ExtResource("2_al8ar")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_27cb7")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_27cb7")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
