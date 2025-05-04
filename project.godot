@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Projet-twitter"
-run/main_scene="uid://bi3j8yybij40r"
+run/main_scene="uid://cmek0k3tabeyy"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://assets/Sprites/Characters/Player/icon.svg"
 
@@ -31,6 +31,7 @@ version_control/autoload_on_startup=true
 folder_colors={
 "res://Scenes/": "orange",
 "res://Scenes/Characters/": "blue",
+"res://Scenes/Game/": "teal",
 "res://Scenes/Levels/": "green",
 "res://Scripts/": "red",
 "res://Scripts/Characters/": "blue",

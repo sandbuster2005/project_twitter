@@ -1,8 +1,80 @@
-[gd_scene load_steps=5 format=3 uid="uid://bi3j8yybij40r"]
+[gd_scene load_steps=6 format=3 uid="uid://bi3j8yybij40r"]
 
-[ext_resource type="PackedScene" uid="uid://miaubx1cimuv" path="res://Scenes/Characters/player.tscn" id="1_usv2h"]
+[ext_resource type="PackedScene" uid="uid://b4m1wsypfwcff" path="res://Scenes/Characters/Player/player.tscn" id="1_usv2h"]
 [ext_resource type="Texture2D" uid="uid://cgxtro5br53eo" path="res://assets/Sprites/Characters/Player/icon.svg" id="2_6e4q7"]
-[ext_resource type="PackedScene" uid="uid://cicjpx73nrxix" path="res://Scenes/Characters/Ennemies/ennemy.tscn" id="3_2ytpj"]
+[ext_resource type="PackedScene" uid="uid://cicjpx73nrxix" path="res://Scenes/Characters/Enemies/enemy.tscn" id="3_2ytpj"]
+
+[sub_resource type="GDScript" id="GDScript_2ytpj"]
+script/source = "extends CharacterBody2D
+
+signal death
+
+@export_category(\"Walk/Run\")
+@export var Speed : int = 700
+@export var Acceleration : int = 5600
+
+@export_category(\"Jump\")
+@export var Jump_strength = 1500
+@export var jumpMax = 2
+
+@export_category(\"Dash\")
+@export var Dash_delay = 50
+@export var Dash_duration = 20
+@export var Dash_strength = 1500
+var Dash_dir = 0
+
+@onready var Dash_cooldown : float = 0
+
+
+var Move = true 
+var jumpNum = jumpMax
+
+@onready var gravity = VariableManager.gravity
+
+func _ready() -> void:
+	pass
+
+func _process(delta: float) -> void:
+	if Move:
+		if is_on_floor():
+			if jumpNum == -1 and Input.is_action_pressed(\"Up\"):
+				jumpNum = jumpMax - 1
+				velocity.y = -Jump_strength
+			else:
+				jumpNum = jumpMax
+		elif velocity.y <= 3000:
+			velocity.y += gravity
+		
+		if Input.is_action_just_pressed(\"Up\"):
+			if jumpNum > 0:
+				jumpNum -= 1
+				velocity.y = -Jump_strength
+			else:
+				jumpNum = -1
+		
+		if Dash_cooldown !=0 :
+			Dash_cooldown -= 1
+		
+		var direction := Input.get_axis(\"Left\", \"Right\")
+		if Dash_cooldown < Dash_delay-Dash_duration:
+			velocity.x = move_toward(velocity.x, direction * Speed, Acceleration * delta)
+		
+		if Input.is_action_pressed(\"dash\") and not Dash_cooldown and is_on_floor():
+			if direction != 0:
+				Dash_cooldown = Dash_delay
+				velocity.y = 0
+				Dash_dir = direction
+		
+		if Dash_cooldown > Dash_delay-Dash_duration:
+			velocity.x = Dash_strength*Dash_dir*sin((Dash_cooldown-Dash_delay)/Dash_duration+PI/2)
+			
+		
+		move_and_slide()
+ 
+func _on_area_2d_body_entered(body: Node2D) -> void:
+	if \"Ennemy\" in body.name:
+		death.emit()
+"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xmoga"]
 size = Vector2(128.229, 127.369)
@@ -11,66 +83,94 @@ size = Vector2(128.229, 127.369)
 
 [node name="Player" parent="." instance=ExtResource("1_usv2h")]
 position = Vector2(310, 47)
+script = SubResource("GDScript_2ytpj")
+Dash_strength = 1350
 
-[node name="Sol" type="Sprite2D" parent="."]
+[node name="Ennemy" parent="." instance=ExtResource("3_2ytpj")]
+position = Vector2(4672, 152)
+
+[node name="Plateformes" type="Node2D" parent="."]
+
+[node name="Sol7" type="Sprite2D" parent="Plateformes"]
+position = Vector2(-11904, 1408)
+scale = Vector2(165.93, 9.28126)
+texture = ExtResource("2_6e4q7")
+metadata/_edit_group_ = true
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Plateformes/Sol7"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Plateformes/Sol7/StaticBody2D"]
+position = Vector2(-0.285976, 0.630524)
+shape = SubResource("RectangleShape2D_xmoga")
+
+[node name="Sol6" type="Sprite2D" parent="Plateformes"]
+position = Vector2(3608, 1456)
+scale = Vector2(76.4259, 10.0608)
+texture = ExtResource("2_6e4q7")
+metadata/_edit_group_ = true
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Plateformes/Sol6"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Plateformes/Sol6/StaticBody2D"]
+position = Vector2(-0.285976, 0.630524)
+shape = SubResource("RectangleShape2D_xmoga")
+
+[node name="Sol" type="Sprite2D" parent="Plateformes"]
 position = Vector2(450, 469)
 scale = Vector2(8.74219, 3.17188)
 texture = ExtResource("2_6e4q7")
 metadata/_edit_group_ = true
 
-[node name="StaticBody2D" type="StaticBody2D" parent="Sol"]
+[node name="StaticBody2D" type="StaticBody2D" parent="Plateformes/Sol"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Sol/StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Plateformes/Sol/StaticBody2D"]
 position = Vector2(-0.285976, 0.630524)
 shape = SubResource("RectangleShape2D_xmoga")
 
-[node name="Sol2" type="Sprite2D" parent="."]
+[node name="Sol2" type="Sprite2D" parent="Plateformes"]
 position = Vector2(1897, 207)
 scale = Vector2(8.74219, 3.17188)
 texture = ExtResource("2_6e4q7")
 metadata/_edit_group_ = true
 
-[node name="StaticBody2D" type="StaticBody2D" parent="Sol2"]
+[node name="StaticBody2D" type="StaticBody2D" parent="Plateformes/Sol2"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Sol2/StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Plateformes/Sol2/StaticBody2D"]
 position = Vector2(-0.285976, 0.630524)
 shape = SubResource("RectangleShape2D_xmoga")
 
-[node name="Sol3" type="Sprite2D" parent="."]
+[node name="Sol3" type="Sprite2D" parent="Plateformes"]
 position = Vector2(3623, -111)
 scale = Vector2(8.74219, 3.17188)
 texture = ExtResource("2_6e4q7")
 metadata/_edit_group_ = true
 
-[node name="StaticBody2D" type="StaticBody2D" parent="Sol3"]
+[node name="StaticBody2D" type="StaticBody2D" parent="Plateformes/Sol3"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Sol3/StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Plateformes/Sol3/StaticBody2D"]
 position = Vector2(-0.285976, 0.630524)
 shape = SubResource("RectangleShape2D_xmoga")
 
-[node name="Sol4" type="Sprite2D" parent="."]
-position = Vector2(5242, 424)
+[node name="Sol4" type="Sprite2D" parent="Plateformes"]
+position = Vector2(5096, 424)
 scale = Vector2(8.74219, 3.17188)
 texture = ExtResource("2_6e4q7")
 metadata/_edit_group_ = true
 
-[node name="StaticBody2D" type="StaticBody2D" parent="Sol4"]
+[node name="StaticBody2D" type="StaticBody2D" parent="Plateformes/Sol4"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Sol4/StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Plateformes/Sol4/StaticBody2D"]
 position = Vector2(-0.285976, 0.630524)
 shape = SubResource("RectangleShape2D_xmoga")
 
-[node name="Sol5" type="Sprite2D" parent="."]
+[node name="Sol5" type="Sprite2D" parent="Plateformes"]
 position = Vector2(6216, 424)
 scale = Vector2(8.74219, 3.17188)
 texture = ExtResource("2_6e4q7")
 metadata/_edit_group_ = true
 
-[node name="StaticBody2D" type="StaticBody2D" parent="Sol5"]
+[node name="StaticBody2D" type="StaticBody2D" parent="Plateformes/Sol5"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Sol5/StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Plateformes/Sol5/StaticBody2D"]
 position = Vector2(-0.285976, 0.630524)
 shape = SubResource("RectangleShape2D_xmoga")
-
-[node name="Ennemy" parent="." instance=ExtResource("3_2ytpj")]
-position = Vector2(5632, -120)
