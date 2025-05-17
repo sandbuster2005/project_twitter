@@ -13,6 +13,7 @@ config_version=5
 config/name="Projet-twitter"
 config/description="Un pitit projet sympa entre potes. :)"
 config/version="test 0.4"
+config/tags=PackedStringArray("2d")
 run/main_scene="uid://cmek0k3tabeyy"
 config/features=PackedStringArray("4.4", "Forward Plus")
 boot_splash/bg_color=Color(0.0674422, 0.0950151, 0.359734, 1)

@@ -57,7 +57,7 @@ func _process(delta: float):
 		
 		if Input.is_action_just_pressed("Up"):
 			if jumpNum > 0:
-				Input.start_joy_vibration(1,0.5,0.5,0.1)
+				Input.start_joy_vibration(1,0.5,0.1,0.1)
 				jumpNum -= 1
 				velocity.y = -Jump_strength
 			else:
@@ -83,7 +83,7 @@ func _process(delta: float):
 				Dash_dir = sign(direction) * 1
 		
 		if Dash_cooldown > Dash_delay-Dash_duration:
-			Input.start_joy_vibration(1, 1, sin((Dash_cooldown-Dash_delay)/Dash_duration+PI/2), 0.1)
+			Input.start_joy_vibration(1, 0, 0.5, 0.1)
 			$Sprite.rotation += Dash_dir * 0.5
 			Invincible = true
 			set_collision_layer_value(1,false)
