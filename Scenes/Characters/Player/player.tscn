@@ -1,32 +1,124 @@
-[gd_scene load_steps=5 format=3 uid="uid://b4m1wsypfwcff"]
+[gd_scene load_steps=11 format=3 uid="uid://b4m1wsypfwcff"]
 
 [ext_resource type="Script" uid="uid://bm8u2mn42xnuc" path="res://Scripts/Characters/Player/player.gd" id="1_lyjr2"]
-[ext_resource type="Texture2D" uid="uid://cgxtro5br53eo" path="res://assets/Sprites/Characters/Player/icon.svg" id="2_al8ar"]
+[ext_resource type="Texture2D" uid="uid://77dfkisgg0jl" path="res://assets/Sprites/Characters/Player/New_Piskel.png" id="2_lyjr2"]
+[ext_resource type="Shader" uid="uid://jrx37ofe63qb" path="res://assets/Materials/Flash.gdshader" id="2_siygm"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_27cb7"]
-radius = 64.0
-height = 128.0
+radius = 80.0
+height = 186.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_27cb7"]
-radius = 68.0294
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_siygm"]
+
+[sub_resource type="Animation" id="Animation_lyjr2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:Invincible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite:material:shader_parameter/active")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_siygm"]
+resource_name = "hurt"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:Invincible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0333333, 1.43333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite:material:shader_parameter/active")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [true, false, true, false, true, false, true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qqvsf"]
+_data = {
+&"RESET": SubResource("Animation_lyjr2"),
+&"hurt": SubResource("Animation_siygm")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lyjr2"]
+size = Vector2(184, 184)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qqvsf"]
+resource_local_to_scene = true
+shader = ExtResource("2_siygm")
+shader_parameter/active = false
 
 [node name="Player" type="CharacterBody2D"]
+z_index = 1
+collision_layer = 3
 script = ExtResource("1_lyjr2")
-
-[node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(0.5, 0.5)
-position_smoothing_enabled = true
-position_smoothing_speed = 10.0
-
-[node name="Icon" type="Sprite2D" parent="."]
-texture = ExtResource("2_al8ar")
+Jump_strength = 1800
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_27cb7")
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="Camera2D" type="Camera2D" parent="."]
+ignore_rotation = false
+zoom = Vector2(0.5, 0.5)
+position_smoothing_enabled = true
+position_smoothing_speed = 10.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource("CircleShape2D_27cb7")
+[node name="Attack_area" type="Area2D" parent="."]
 
-[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Attack_area"]
+position = Vector2(-115, -2)
+shape = SubResource("RectangleShape2D_siygm")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_qqvsf")
+}
+
+[node name="Hurt_box" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurt_box"]
+position = Vector2(4, 4)
+shape = SubResource("RectangleShape2D_lyjr2")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture_filter = 1
+texture_repeat = 1
+material = SubResource("ShaderMaterial_qqvsf")
+position = Vector2(-8, 0)
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("2_lyjr2")
+
+[connection signal="body_entered" from="Hurt_box" to="." method="_on_area_2d_body_entered"]

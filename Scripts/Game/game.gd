@@ -23,3 +23,7 @@ func _on_restart():
 func _delete_chidrens():
 	for i in get_children():
 		i.queue_free()
+
+func _process(delta: float):
+	if Input.is_action_pressed("restart"):
+		_on_restart()
