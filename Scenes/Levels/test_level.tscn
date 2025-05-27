@@ -1,119 +1,42 @@
-[gd_scene load_steps=6 format=3 uid="uid://bi3j8yybij40r"]
+[gd_scene load_steps=9 format=3 uid="uid://bi3j8yybij40r"]
 
 [ext_resource type="PackedScene" uid="uid://b4m1wsypfwcff" path="res://Scenes/Characters/Player/player.tscn" id="1_usv2h"]
 [ext_resource type="Texture2D" uid="uid://cgxtro5br53eo" path="res://assets/Sprites/Characters/Player/icon.svg" id="2_6e4q7"]
 [ext_resource type="PackedScene" uid="uid://cicjpx73nrxix" path="res://Scenes/Characters/Enemies/enemy.tscn" id="3_2ytpj"]
-
-[sub_resource type="GDScript" id="GDScript_2ytpj"]
-script/source = "extends CharacterBody2D
-
-signal death
-
-@export_category(\"Walk/Run\")
-@export var Speed : int = 700
-@export var Acceleration : int = 5600
-
-@export_category(\"Jump\")
-@export var Jump_strength = 1500
-@export var jumpMax = 2
-
-@export_category(\"Dash\")
-@export var Dash_delay = 50
-@export var Dash_duration = 20
-@export var Dash_strength = 1500
-var Dash_dir = 0
-
-@onready var Dash_cooldown : float = 0
-
-
-var Move = true 
-var jumpNum = jumpMax
-
-@onready var gravity = VariableManager.gravity
-
-func _ready() -> void:
-	pass
-
-func _process(delta: float) -> void:
-	if Move:
-		if is_on_floor():
-			if jumpNum == -1 and Input.is_action_pressed(\"Up\"):
-				jumpNum = jumpMax - 1
-				velocity.y = -Jump_strength
-			else:
-				jumpNum = jumpMax
-		elif velocity.y <= 3000:
-			velocity.y += gravity
-		
-		if Input.is_action_just_pressed(\"Up\"):
-			if jumpNum > 0:
-				jumpNum -= 1
-				velocity.y = -Jump_strength
-			else:
-				jumpNum = -1
-		
-		if Dash_cooldown !=0 :
-			Dash_cooldown -= 1
-		
-		var direction := Input.get_axis(\"Left\", \"Right\")
-		if Dash_cooldown < Dash_delay-Dash_duration:
-			velocity.x = move_toward(velocity.x, direction * Speed, Acceleration * delta)
-		
-		if Input.is_action_pressed(\"dash\") and not Dash_cooldown and is_on_floor():
-			if direction != 0:
-				Dash_cooldown = Dash_delay
-				velocity.y = 0
-				Dash_dir = direction
-		
-		if Dash_cooldown > Dash_delay-Dash_duration:
-			velocity.x = Dash_strength*Dash_dir*sin((Dash_cooldown-Dash_delay)/Dash_duration+PI/2)
-			
-		
-		move_and_slide()
- 
-func _on_area_2d_body_entered(body: Node2D) -> void:
-	if \"Ennemy\" in body.name:
-		death.emit()
-"
+[ext_resource type="Texture2D" uid="uid://cjsfrvcpuj0km" path="res://assets/tilemap/Tiles/dirt.png" id="4_db73o"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xmoga"]
 size = Vector2(128.229, 127.369)
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_db73o"]
+texture = ExtResource("4_db73o")
+texture_region_size = Vector2i(896, 896)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-448, -336.306, 448, -336.009, 448, 448, -448, 448)
+
+[sub_resource type="TileSet" id="TileSet_k8g1k"]
+tile_size = Vector2i(896, 896)
+physics_layer_0/collision_layer = 7
+physics_layer_0/collision_mask = 7
+sources/1 = SubResource("TileSetAtlasSource_db73o")
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_db73o"]
+
 [node name="Test_level" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("1_usv2h")]
-position = Vector2(310, 47)
-script = SubResource("GDScript_2ytpj")
-Dash_strength = 1350
+position = Vector2(344, 64)
 
 [node name="Ennemy" parent="." instance=ExtResource("3_2ytpj")]
 position = Vector2(4672, 152)
 
+[node name="Ennemy2" parent="." instance=ExtResource("3_2ytpj")]
+position = Vector2(3488, -384)
+
+[node name="Ennemy3" parent="." instance=ExtResource("3_2ytpj")]
+position = Vector2(1624, -88)
+
 [node name="Plateformes" type="Node2D" parent="."]
-
-[node name="Sol7" type="Sprite2D" parent="Plateformes"]
-position = Vector2(-11904, 1408)
-scale = Vector2(165.93, 9.28126)
-texture = ExtResource("2_6e4q7")
-metadata/_edit_group_ = true
-
-[node name="StaticBody2D" type="StaticBody2D" parent="Plateformes/Sol7"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Plateformes/Sol7/StaticBody2D"]
-position = Vector2(-0.285976, 0.630524)
-shape = SubResource("RectangleShape2D_xmoga")
-
-[node name="Sol6" type="Sprite2D" parent="Plateformes"]
-position = Vector2(3608, 1456)
-scale = Vector2(76.4259, 10.0608)
-texture = ExtResource("2_6e4q7")
-metadata/_edit_group_ = true
-
-[node name="StaticBody2D" type="StaticBody2D" parent="Plateformes/Sol6"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Plateformes/Sol6/StaticBody2D"]
-position = Vector2(-0.285976, 0.630524)
-shape = SubResource("RectangleShape2D_xmoga")
 
 [node name="Sol" type="Sprite2D" parent="Plateformes"]
 position = Vector2(450, 469)
@@ -122,6 +45,8 @@ texture = ExtResource("2_6e4q7")
 metadata/_edit_group_ = true
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Plateformes/Sol"]
+collision_layer = 7
+collision_mask = 7
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Plateformes/Sol/StaticBody2D"]
 position = Vector2(-0.285976, 0.630524)
@@ -134,6 +59,8 @@ texture = ExtResource("2_6e4q7")
 metadata/_edit_group_ = true
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Plateformes/Sol2"]
+collision_layer = 7
+collision_mask = 7
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Plateformes/Sol2/StaticBody2D"]
 position = Vector2(-0.285976, 0.630524)
@@ -146,6 +73,8 @@ texture = ExtResource("2_6e4q7")
 metadata/_edit_group_ = true
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Plateformes/Sol3"]
+collision_layer = 7
+collision_mask = 7
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Plateformes/Sol3/StaticBody2D"]
 position = Vector2(-0.285976, 0.630524)
@@ -158,6 +87,8 @@ texture = ExtResource("2_6e4q7")
 metadata/_edit_group_ = true
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Plateformes/Sol4"]
+collision_layer = 7
+collision_mask = 7
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Plateformes/Sol4/StaticBody2D"]
 position = Vector2(-0.285976, 0.630524)
@@ -170,7 +101,53 @@ texture = ExtResource("2_6e4q7")
 metadata/_edit_group_ = true
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Plateformes/Sol5"]
+collision_layer = 7
+collision_mask = 7
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Plateformes/Sol5/StaticBody2D"]
 position = Vector2(-0.285976, 0.630524)
 shape = SubResource("RectangleShape2D_xmoga")
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2(4000, 4000)
+
+[node name="ColorRect" type="ColorRect" parent="ParallaxBackground/ParallaxLayer"]
+offset_top = -1900.0
+offset_right = 4000.0
+offset_bottom = 2708.0
+color = Color(0.181705, 0.642621, 0.753477, 1)
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
+position = Vector2(-27, 368)
+motion_mirroring = Vector2(4000, 0)
+
+[node name="ColorRect" type="ColorRect" parent="ParallaxBackground/ParallaxLayer2"]
+offset_left = 25.0
+offset_top = 934.0
+offset_right = 4025.0
+offset_bottom = 5542.0
+color = Color(0, 0, 0, 1)
+
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2(11200, 0)
+
+[node name="Dirt" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer3"]
+texture_filter = 1
+texture_repeat = 3
+position = Vector2(992, 1080)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_db73o")
+region_enabled = true
+region_rect = Rect2(0, 0, 22400, 896)
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+tile_set = SubResource("TileSet_k8g1k")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(0, -512)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(0, 1408)
+shape = SubResource("WorldBoundaryShape2D_db73o")

@@ -1,18 +1,32 @@
-[gd_scene load_steps=4 format=3 uid="uid://cicjpx73nrxix"]
+[gd_scene load_steps=7 format=3 uid="uid://cicjpx73nrxix"]
 
 [ext_resource type="Script" uid="uid://bb52kqenalv1" path="res://Scripts/Characters/Enemies/enemy.gd" id="1_c7fqo"]
 [ext_resource type="Texture2D" uid="uid://cgxtro5br53eo" path="res://assets/Sprites/Characters/Player/icon.svg" id="2_3ekg1"]
+[ext_resource type="Theme" uid="uid://bq2v80y2o5puv" path="res://assets/Themes/Theme_1.tres" id="3_ofthe"]
+[ext_resource type="FontFile" uid="uid://cqbibes8bfr74" path="res://assets/Fonts/PixelifySans-Regular.ttf" id="4_67xvd"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_kled3"]
-size = Vector2(128, 160)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ofthe"]
+radius = 63.0
+height = 160.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_rmt0q"]
+font = ExtResource("4_67xvd")
+font_size = 96
+font_color = Color(0.999209, 0.0263131, 0.122911, 1)
+outline_size = 5
+outline_color = Color(0, 0, 0, 1)
 
 [node name="Ennemy" type="CharacterBody2D"]
+z_index = 1
+collision_layer = 4
+collision_mask = 5
 script = ExtResource("1_c7fqo")
 speed = 50
+speed_max = Vector2(650, 3000)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -16)
-shape = SubResource("RectangleShape2D_kled3")
+shape = SubResource("CapsuleShape2D_ofthe")
 
 [node name="Icon" type="Sprite2D" parent="."]
 modulate = Color(0.27451, 0.00392157, 0.172549, 1)
@@ -27,10 +41,21 @@ rotation = 3.14159
 scale = Vector2(1, -1)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Area2D"]
-polygon = PackedVector2Array(0, -50, 384, -96.001, 384, 63.999)
+polygon = PackedVector2Array(66.9999, -58.0002, 384, -96.001, 384, 63.999, 67, -8.00017)
 
 [node name="RayCast2D" type="RayCast2D" parent="Node2D"]
-position = Vector2(-128, 64)
+position = Vector2(-124, 59)
+
+[node name="Label" type="Label" parent="Node2D"]
+visible = false
+offset_left = -29.0
+offset_top = -206.0
+offset_right = 31.0
+offset_bottom = -18.0
+theme = ExtResource("3_ofthe")
+text = "!"
+label_settings = SubResource("LabelSettings_rmt0q")
+horizontal_alignment = 1
 
 [node name="DirectionTimer" type="Timer" parent="."]
 autostart = true

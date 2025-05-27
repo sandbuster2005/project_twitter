@@ -59,6 +59,7 @@ func choose(array):
 	return array.front()
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
-	if body.name == "Player":
+	if "Player" in body.name:
 		cible = body
 		chasing = true
+		$Node2D/Label.visible = true

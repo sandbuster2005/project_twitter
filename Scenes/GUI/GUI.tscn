@@ -1,7 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://bw0afk6ev1ffo"]
+[gd_scene load_steps=8 format=3 uid="uid://bw0afk6ev1ffo"]
 
 [ext_resource type="Script" uid="uid://d38jkmmjmh2w0" path="res://Scripts/GUI/gui.gd" id="1_17j7b"]
 [ext_resource type="Theme" uid="uid://bq2v80y2o5puv" path="res://assets/Themes/Theme_1.tres" id="2_17j7b"]
+[ext_resource type="Texture2D" uid="uid://3ffiy2lmy0tc" path="res://assets/Sprites/GUI/health_bar_empty.png" id="3_fexrg"]
+[ext_resource type="Script" uid="uid://db0wmlxgr8pj2" path="res://Scripts/GUI/health_bar.gd" id="3_n3sgb"]
+[ext_resource type="Texture2D" uid="uid://b077mdnshdobj" path="res://assets/Sprites/GUI/health_bar_full.png" id="4_wf68y"]
+[ext_resource type="Texture2D" uid="uid://c7x28o4v2oslq" path="res://assets/Sprites/Characters/Player/New_Piskel-1.png" id="6_7fy40"]
 
 [sub_resource type="GDScript" id="GDScript_linlh"]
 script/source = "extends Button
@@ -23,23 +27,33 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ColorRect" type="ColorRect" parent="Control"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.517647, 0.517647, 0.517647, 0)
-
-[node name="RestartButton" type="Button" parent="Control/ColorRect"]
-layout_mode = 0
-offset_left = 52.0
-offset_top = 28.0
-offset_right = 243.0
-offset_bottom = 94.0
+[node name="RestartButton" type="Button" parent="Control"]
+layout_mode = 2
+offset_left = 72.0
+offset_top = 48.0
+offset_right = 236.0
+offset_bottom = 101.0
 theme = ExtResource("2_17j7b")
 text = "Restart"
 script = SubResource("GDScript_linlh")
 
-[connection signal="pressed" from="Control/ColorRect/RestartButton" to="." method="_on_restart_button_pressed"]
+[node name="TextureProgressBar" type="TextureProgressBar" parent="Control"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 280.0
+offset_top = 80.0
+offset_right = 1960.0
+offset_bottom = 360.0
+scale = Vector2(0.1, 0.1)
+value = 90.0
+texture_under = ExtResource("3_fexrg")
+texture_progress = ExtResource("4_wf68y")
+script = ExtResource("3_n3sgb")
+
+[node name="NewPiskel-1" type="Sprite2D" parent="Control/TextureProgressBar"]
+texture_filter = 1
+position = Vector2(800, -320)
+scale = Vector2(9.01747, 8.66812)
+texture = ExtResource("6_7fy40")
+
+[connection signal="pressed" from="Control/RestartButton" to="." method="_on_restart_button_pressed"]
